@@ -3,9 +3,33 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
 class HomePage extends Component {
+
+    constructor(props);
+    this.sendSomeData = this.sendSomeData.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
+    this.state = {
+        content: null,
+        messageValue: "",
+        };
+    }
+
+componentDidMount() {
+    axios.get('/api/messages')
+        .then((res) => {
+            console.log(res.data)
+
+        }).catch((e) => {
+            console.log(e);
+    });
+
+}
+
+
+
     render() {
         return (
-            <div>
+            <div className="content-area">
+                {this.state.content}
                 <h1>Home Page</h1>
                 <p>
                     Here is my main page content <Link to="/page1/mail">Mail</Link>
@@ -20,6 +44,8 @@ class HomePage extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        messages: state.testReducer.messages,
+        };
     };
 };
 
